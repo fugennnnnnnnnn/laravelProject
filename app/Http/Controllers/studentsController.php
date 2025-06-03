@@ -12,14 +12,14 @@ class StudentsController extends Controller
     public function myView()
     {
         
-      //  $students = Students::all();
+     
         $students = Students::latest()->paginate(5);
         $users = User::all();
 
         return view('dashboard', compact('students', 'users'));
     }
 
-    // Method to handle the search request
+
     public function search(Request $request)
     {
         $search = $request->input('search'); // Get the search query from the request
