@@ -21,6 +21,7 @@ class UserController extends Controller
         }
         return back()->withErrors(['login' => 'Invalid login credentials.']);
     }
+   
 
     public function logout() {
         auth()->logout();
