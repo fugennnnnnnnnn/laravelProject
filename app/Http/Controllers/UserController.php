@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +17,7 @@ class UserController extends Controller
             'loginpassword' => 'required'
         ]);
 
-        if (auth()->attempt(['username' => $incomingFields['loginname'], 'password' =>$incomingFields['loginpassword'] ])) {
+        if (Auth::attempt(['username' => $incomingFields['loginname'], 'password' =>$incomingFields['loginpassword'] ])) {
             $request->session()->regenerate();
             return redirect('/');
         }
@@ -24,7 +26,7 @@ class UserController extends Controller
    
 
     public function logout() {
-        auth()->logout();
+     //   auth()->logout();
         return redirect('/login');
     }
 
@@ -37,7 +39,7 @@ class UserController extends Controller
 
         $incomingFields['password'] = bcrypt($incomingFields['password']);
         $user = User::create($incomingFields);
-        auth()->login($user);
+        Auth::login($user);
         return redirect('/');
     }
 }
